@@ -1,5 +1,17 @@
 <?php
 
+use App\Http\Controllers\API\BillboardApiController;
+use App\Http\Controllers\API\CallCenterApiController;
+use App\Http\Controllers\API\ContactUsApiController;
+use App\Http\Controllers\API\CsrApiController;
+use App\Http\Controllers\API\HomeApiController;
+use App\Http\Controllers\API\MediaApiController;
+use App\Http\Controllers\API\NearbyApiController;
+use App\Http\Controllers\API\ProfileApiController;
+use App\Http\Controllers\API\ProfileController;
+use App\Http\Controllers\API\SejarahApiController;
+use App\Http\Controllers\API\TarifApiController;
+use App\Http\Controllers\API\VisiMisiApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,3 +43,31 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+// Home
+Route::get('/', [HomeApiController::class, 'index'])->name('api.home');
+// Profile
+Route::get('/profile', [ProfileApiController::class, 'index'])->name('api.profile');
+// Sejarah
+Route::get('/sejarah', [SejarahApiController::class, 'index'])->name('api.sejarah');
+// Visi-misi
+Route::get('/visi-misi', [VisiMisiApiController::class, 'index'])->name('api.visi-misi');
+// Csr
+Route::get('/csr', [CsrApiController::class, 'index'])->name('api.csr');
+// Struk
+// Route::get('/struk')
+// Tarif
+Route::get('/tarif', [TarifApiController::class, 'index'])->name('api.tarif');
+// Call-center
+Route::get('/call-center', [CallCenterApiController::class, 'index'])->name('api.call-center');
+// Nearby
+Route::get('/nearby', [NearbyApiController::class, 'index'])->name('api.nearby');
+// Media
+Route::get('/media', [MediaApiController::class, 'index'])->name('api.media');
+Route::get('/media/{id}', [MediaApiController::class, 'detail'])->name('api.media.detail');
+// Billboard
+Route::get('/billboard', [BillboardApiController::class, 'index'])->name('api.billboard');
+// Contact-us
+Route::get('/contact-us', [ContactUsApiController::class, 'index'])->name('api.contact-us');
+// login
+// Register
