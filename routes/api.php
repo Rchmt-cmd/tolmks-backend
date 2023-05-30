@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\BillboardApiController;
 use App\Http\Controllers\API\CallCenterApiController;
 use App\Http\Controllers\API\ContactUsApiController;
@@ -44,10 +45,16 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 //     return $request->user();
 // });
 
-// Home
-Route::get('/', [HomeApiController::class, 'index'])->name('api.home');
+Route::group(['middleware' => ['auth:sanctum']], function() {
+    // logout
+    Route::post('/logout', [AuthController::class, 'logout'])->name('api.logout');
+
+});
+
 // Profile
 Route::get('/profile', [ProfileApiController::class, 'index'])->name('api.profile');
+// Home
+Route::get('/', [HomeApiController::class, 'index'])->name('api.home');
 // Sejarah
 Route::get('/sejarah', [SejarahApiController::class, 'index'])->name('api.sejarah');
 // Visi-misi
@@ -70,4 +77,6 @@ Route::get('/billboard', [BillboardApiController::class, 'index'])->name('api.bi
 // Contact-us
 Route::get('/contact-us', [ContactUsApiController::class, 'index'])->name('api.contact-us');
 // login
+Route::post('/login', [AuthController::class, 'login'])->name('api.login');
 // Register
+Route::post('/register', [AuthController::class, 'register'])->name('api.register');
