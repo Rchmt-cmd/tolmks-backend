@@ -16,7 +16,7 @@ class CallCenterApiController extends ApiController
         $call_center_child = DB::table('call_center_child')->get();
 
         $data = [
-            'call-center' => $call_center,
+            'call_center' => $call_center,
             'call_center_child' => $call_center_child
         ];
 

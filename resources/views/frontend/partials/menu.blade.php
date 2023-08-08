@@ -34,20 +34,6 @@
                     </li>
                 </ul>
             </li>
-            <!-- <li data-menu="">
-                <a class="dropdown-item d-flex align-items-center" href="{{route('dewan')}}" data-toggle="dropdown">
-                    <span data-i18n="Dashboard 2">Dewan Komisaris & Direksi</span>
-                </a>
-            <li data-menu="">
-                <a class="dropdown-item d-flex align-items-center" href="{{route('struktur')}}" data-toggle="dropdown">
-                    <span data-i18n="Dashboard 2">Struktur Kepemilikan</span>
-                </a>
-            </li>
-            <li data-menu="">
-                <a class="dropdown-item d-flex align-items-center" href="#" data-toggle="dropdown">
-                    <span data-i18n="Dashboard 2">Kebijakan Manajemen Sistem</span>
-                </a>
-            </li> -->
             <li data-menu="">
                 <a class="dropdown-item d-flex align-items-center" href="{{route('csr')}}" data-toggle="dropdown">
                     <span data-i18n="Dashboard 2">CSR</span>
@@ -63,25 +49,16 @@
         <ul class="dropdown-menu">
             <li data-menu="">
                 <a class="dropdown-item d-flex align-items-center" href="{{ route('struk') }}" data-toggle="dropdown">
-                    <!-- <i class="ft-arrow-right submenu-icon"></i> -->
                     <span data-i18n="Dashboard 2">Cetak Struk</span>
                 </a>
             </li>
-            <!-- <li data-menu="">
-                <a class="dropdown-item d-flex align-items-center" href="#" data-toggle="dropdown">
-                    <i class="ft-arrow-right submenu-icon"></i>
-                    <span data-i18n="Dashboard 2">CCTV</span>
-                </a>
-            </li> -->
             <li data-menu="">
                 <a class="dropdown-item d-flex align-items-center" href="{{ route('tarif') }}" data-toggle="dropdown">
-                    <!-- <i class="ft-arrow-right submenu-icon"></i> -->
                     <span data-i18n="Dashboard 2">Info Tarif</span>
                 </a>
             </li>
             <li data-menu="">
                 <a class="dropdown-item d-flex align-items-center" href="{{ route('call-center') }}" data-toggle="dropdown">
-                    <!-- <i class="ft-arrow-right submenu-icon"></i> -->
                     <span data-i18n="Dashboard 2">Pelayanan Lalu Lintas</span>
                 </a>
             </li>
@@ -99,16 +76,6 @@
             <span data-i18n="Dashboard">Media</span>
         </a>
         <ul class="dropdown-menu">
-            <!-- <li data-menu="">
-                <a class="dropdown-item d-flex align-items-center" href="{{ route('billboard') }}" data-toggle="dropdown">
-                    <span data-i18n="Dashboard 1">Billboard</span>
-                </a>
-            </li> -->
-            <!-- <li data-menu="">
-                <a class="dropdown-item d-flex align-items-center" href="{{ route('media') }}" data-toggle="dropdown">
-                    <span data-i18n="Dashboard 1">Artikel</span>
-                </a>
-            </li> -->
             <li data-menu="">
                 <a class="dropdown-item d-flex align-items-center" href="#" data-toggle="dropdown">
                     <span data-i18n="Dashboard 1">Press Release</span>
@@ -135,12 +102,6 @@
             </li>
         </ul>
     </li>
-    <!-- <li class="nav-item">
-        <a class="nav-link d-flex align-items-center " href="#">
-            <i class="fa fa-handshake-o"></i>
-            <span data-i18n="billboard">Karir</span>
-        </a>
-    </li> -->
     <li class="nav-item">
         <a class="nav-link d-flex align-items-center " href="{{ route('contact-us') }}">
             <i class="ft-phone"></i>

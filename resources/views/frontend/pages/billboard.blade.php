@@ -22,7 +22,7 @@
 @push('scripts')
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
 <script type="text/javascript">
-  mapboxgl.accessToken = '{{env("MAPBOX_KEY")}}';
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYWRlanVsIiwiYSI6ImNraWF5NHRzZzBncHYycnJ0c3lyNGlhemMifQ.Mybta6gzR48sB8ye-gahJQ';
   var map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/mapbox/streets-v11', // style URL

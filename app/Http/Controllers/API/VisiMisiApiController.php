@@ -11,7 +11,7 @@ class VisiMisiApiController extends ApiController
     {
 
         $banner = DB::table('banner')
-        ->where('active', '=', '1')
+            ->where('active', '=', '1')
             ->where('menu', '=', '1')
             ->get();
 
@@ -29,7 +29,7 @@ class VisiMisiApiController extends ApiController
 
         $data = [
             'banner' => $banner,
-            'visi-misi' => $visimisi,
+            'visi_misi' => $visimisi,
             'nilai' => $nilai,
         ];
 

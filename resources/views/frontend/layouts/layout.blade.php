@@ -78,7 +78,7 @@
         <div class="main-panel">
             <!-- BEGIN : Main Content-->
             <div class="main-content">
-                <div class="content-overlay"></div>
+                {{-- <div class="content-overlay"></div> --}}
                 <div class="content-wrapper">
                     
                     <!-- Main content -->

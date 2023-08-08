@@ -10,6 +10,7 @@
               <ul class="navbar-nav">
                 <li class="nav-item">
                   <div class="logo">
+                    <a href="#">
                       <div class="logo-img">
                         <img class="logo-img" src="{{ asset('apexnew/app-assets/img/Logo_MMN_JTSE.png') }}">
                       </div>
