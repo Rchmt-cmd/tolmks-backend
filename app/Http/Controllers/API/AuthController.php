@@ -2,66 +2,77 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\API\ApiController;
+use Illuminate\Validation\ValidationException;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 class AuthController extends ApiController
 {
-    public function register(Request $request)
+    public function register()
     {
-        $fields = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed'
+        request()->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed'],
         ]);
 
         $user = User::create([
-            'name' => $fields['name'],
-            'email' => $fields['email'],
-            'password' => bcrypt($fields['password'])
+            'name' => request('name'),
+            'email' => request('email'),
+            'password' => Hash::make(request('password')),
         ]);
 
-        $token = $user->createToken('myapptoken')->plainTextToken;
-
-        $response = [
-            'user' => $user,
-            'token' => $token,
-        ];
-
-        return $this->successResponse($response, null, 201);
+        Auth::guard('web')->login($user);
     }
 
-    public function logout(Request $request)
+    public function login()
     {
-        auth()->user()->tokens()->delete();
-
-        $response = [];
-
-        return $this->successResponse($response, 'Logged Out', 201);
-    }
-
-    public function login(Request $request)
-    {
-        $fields = $request->validate([
-            'email' => 'required|string|email|max:255',
-            'password' => 'required|string|min:8'
+        request()->validate([
+            'email' => ['required', 'string', 'email'],
+            'password' => ['required'],
         ]);
 
-        $user = User::where('email', $fields['email'])->first();
+        /**
+         * We are authenticating a request from our frontend.
+         */
+        if (EnsureFrontendRequestsAreStateful::fromFrontend(request())) {
+            $this->authenticateFrontend();
+        }
+        /**
+         * We are authenticating a request from a 3rd party.
+         */
+        else {
+            // Use token authentication.
+        }
+    }
 
-        if (!$user || !Hash::check($fields['password'], $user->password)) {
-            return $this->errorResponse('Bad Credentials', 401);
-        }  
+    private function authenticateFrontend()
+    {
+        if (!Auth::guard('web')
+            ->attempt(
+                request()->only('email', 'password')
+            )) {
+            throw ValidationException::withMessages([
+                'email' => __('auth.failed'),
+            ]);
+        }
+    }
 
-        $token = $user->createToken('myapptoken')->plainTextToken;
+    public function logout()
+    {
+        if (EnsureFrontendRequestsAreStateful::fromFrontend(request())) {
+            Auth::guard('web')->logout();
 
-        $response = [
-            'user' => $user,
-            'token' => $token,
-        ];
+            request()->session()->invalidate();
 
-        return $this->successResponse($response, null, 201);
+            request()->session()->regenerateToken();
+        } else {
+            // Revoke token
+        }
     }
 }

@@ -272,7 +272,7 @@
         container: 'map-contact', // container ID
         style: 'mapbox://styles/mapbox/streets-v11', // style URL
         center: [ 119.4144549, -5.1347684], // starting position [lng, lat]
-        zoom: 15 // starting zoom
+        zoom: 15, // starting zoom
     });
 
     const style = "streets-v11"

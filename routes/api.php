@@ -1,22 +1,26 @@
 <?php
 
-use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\API\BillboardApiController;
-use App\Http\Controllers\API\CallCenterApiController;
-use App\Http\Controllers\API\ContactUsApiController;
-use App\Http\Controllers\API\CsrApiController;
-use App\Http\Controllers\API\HomeApiController;
-use App\Http\Controllers\API\MediaApiController;
-use App\Http\Controllers\API\NearbyApiController;
-use App\Http\Controllers\API\ProfileApiController;
-use App\Http\Controllers\API\ProfileController;
-use App\Http\Controllers\API\SejarahApiController;
-use App\Http\Controllers\API\TarifApiController;
-use App\Http\Controllers\API\VisiMisiApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\CsrApiController;
+use App\Http\Controllers\API\HomeApiController;
+use App\Http\Controllers\API\ProfileController;
+use App\Http\Controllers\API\UserApiController;
+use App\Http\Controllers\API\KartuApiController;
+use App\Http\Controllers\API\MediaApiController;
+use App\Http\Controllers\API\TarifApiController;
+use App\Http\Controllers\API\UserHomeController;
+use App\Http\Controllers\API\NearbyApiController;
+use App\Http\Controllers\API\ProfileApiController;
+use App\Http\Controllers\API\SejarahApiController;
+use App\Http\Controllers\API\VisiMisiApiController;
+use App\Http\Controllers\API\BillboardApiController;
+
+use App\Http\Controllers\API\ContactUsApiController;
+use App\Http\Controllers\API\CallCenterApiController;
+use Illuminate\Auth\Events\Verified;
 
 Route::post('login', [ApiController::class, 'authenticate']);
 Route::post('register', [ApiController::class, 'register']);
@@ -46,9 +50,13 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 // });
 
 Route::group(['middleware' => ['auth:sanctum']], function() {
-    // logout
-    Route::post('/logout', [AuthController::class, 'logout'])->name('api.logout');
+    Route::get('/user', [UserApiController::class, 'index']);
+});
 
+Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
+    Route::get('/profil-user', [UserHomeController::class, 'index'])->name('api.profil-user'); //user dashboard route
+    Route::post('/profil-user/update', [UserHomeController::class, 'update'])->name('api.profil-user-update'); //user data update
+    Route::post('/kartu', [KartuApiController::class, 'store'])->name('api.store-kartu'); //user card update
 });
 
 // Profile
@@ -80,3 +88,5 @@ Route::get('/contact-us', [ContactUsApiController::class, 'index'])->name('api.c
 Route::post('/login', [AuthController::class, 'login'])->name('api.login');
 // Register
 Route::post('/register', [AuthController::class, 'register'])->name('api.register');
+// Logout
+Route::post('/logout', [AuthController::class, 'logout'])->name('api.logout');

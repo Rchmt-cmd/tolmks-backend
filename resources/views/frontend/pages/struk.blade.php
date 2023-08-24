@@ -132,7 +132,7 @@
 				},
 			},
 			ajax:{
-				url:'{{route("struk")}}',
+				url:'/struk',
 				data:{kartu:kartu,tanggal_awal:tanggal_awal,tanggal_akhir:tanggal_akhir},
 				type: "GET"
 			},
